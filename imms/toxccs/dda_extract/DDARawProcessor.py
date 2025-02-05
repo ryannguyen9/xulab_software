@@ -2,7 +2,7 @@
 toxccs/dda_extract/DDARawProcessor.py
 
 Ryan Nguyen (ryan97@uw.edu)
-2/4/25
+12/24/24
 
 description:
         Main logic for extracting MS/MS fragmentation spectra from Waters Fast DDA .raw files. Note that the data must be centroided prior to implementation.
@@ -14,10 +14,10 @@ import os
 from matplotlib import pyplot as plt
 from matplotlib import rcParams
 from dhrmasslynxapi.reader import MassLynxReader
-from toxccs.utils.gaussian import process_chromatogram
-from toxccs.utils.plotting import combined_dda_figure
-from toxccs.utils.peaks import observed_mz
-from toxccs.utils.metrics import calculate_mass_error
+from toxccs_r.utils.gaussian import process_chromatogram
+from toxccs_r.utils.plotting import combined_dda_figure
+from toxccs_r.utils.peaks import observed_mz
+from toxccs_r.utils.metrics import calculate_mass_error
 
 
 # Set global font conditions for figures
@@ -476,7 +476,7 @@ class DDARawProcessor:
                         final_channel = best_channel
                         final_intensity = best_precursor_intensity
                         observed_precursor_mz_new = best_observed_mz
-            print(observed_precursor_mz_new)
+
             if needs_precursor_check:
                 print(
                     f"\t\t...Precursor ion peak NOT among {num_precursors} most intense peaks in MS1 surey scan..."
