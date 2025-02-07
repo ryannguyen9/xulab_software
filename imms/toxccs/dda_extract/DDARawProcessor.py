@@ -500,13 +500,21 @@ class DDARawProcessor:
                                         most_intense_scan_index_new = scan_index
                                         best_mz_temp = observed_mz_temp
 
-                                # Choose the better Channel based on precuror intensty
+                                # Choose the better Channel based on precursor intensty
                                 if most_intense_value_new > best_precursor_intensity:
                                     best_precursor_intensity = most_intense_value_new
                                     best_channel = new_channel
                                     best_observed_mz = best_mz_temp
                                     best_scan_index = most_intense_scan_index_new
-                                    best_most_intense_scan = (scan_mz, scan_intensity)
+                                    best_scan_mz, best_scan_intensity = (
+                                        rdr.scan_reader.ReadScan(
+                                            new_channel, best_scan_index
+                                        )
+                                    )
+                                    best_most_intense_scan = (
+                                        np.array(best_scan_mz),
+                                        np.array(best_scan_intensity),
+                                    )
 
                             # Update values if a better Channel was found
                             if best_channel is not None:
