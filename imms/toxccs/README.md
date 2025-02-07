@@ -239,6 +239,7 @@ Excel (.xlsx) spreadsheet containing the following extracted data:
 * Observed m/z: m/z value of the identified monoisotopic peak (method adapted from MetaboAnnotatoR; https://pubs.acs.org/doi/10.1021/acs.analchem.1c03032)
 * Channel Number: value of the Channel from which the MS/MS fragmentation spectrum was extracted
 * Mass error (ppm): mass error between the target m/z and observed m/z
+* Flag: "FLAG" message for potentially false extracted MS/MS fragmentation spectra 
 
 Finally, `DDARawProcessor.extract` creates a folder in the root directory (if it do not already exist) called "Extracted Data," where images of the chromatographic and MS/MS spectral data are saved to. 
 

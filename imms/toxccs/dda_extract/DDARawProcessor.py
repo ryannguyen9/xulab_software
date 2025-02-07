@@ -362,7 +362,7 @@ class DDARawProcessor:
                     print(
                         f"\t\tCandidate MS/MS Channels Identified: {formatted_channels}"
                     )
-                if correct_channel is None:
+                if len(nonzero_intensity_channels) == 0:
                     print("\n\t\tNo valid MS2 Channel found for target.")
                     continue
 
@@ -532,8 +532,7 @@ class DDARawProcessor:
                     print(f"\t\tCorrect Channel Identified: {correct_channel + 1}")
 
                 # Generate names for output spectrum files
-                print(peak_apex)
-                base_name = f"{compound_name}_{mz}_{adduct}_{os.path.splitext(os.path.basename(file_name))[0]}_{str(round(float(peak_apex), 2)).replace('.', '_')}"
+                base_name = f"{compound_name}_{mz:.4f}_{adduct}_{os.path.splitext(os.path.basename(file_name))[0]}_{round(float(peak_apex), 2)}"
                 spectrum_output_path = os.path.join(
                     data_directory, f"{base_name}.raw_MSMS.xlsx"
                 )
