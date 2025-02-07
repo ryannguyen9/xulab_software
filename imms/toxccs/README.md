@@ -251,8 +251,9 @@ data = DDARawProcessor("dda_test.xlsx")
 
 # Execute main extraction sequence for MS/MS fragmentation spectra
 # Data must be centroided and collected in Fast-DDA mode
-# # Specify m/z tolerance in Da and number of precursor ions selected for fragmentation
-data.dda_extract(mz_tolerance=0.01, num_precursors=5)
+# Specify m/z tolerance in Da and number of precursor ions selected for fragmentation
+# Specify acquisition window (i.e., 0 to 1.8 min) for dynamic plotting window
+data.dda_extract(mz_tolerance=0.01, num_precursors=5, x_min=0, x_max=1.8)
 ```
 
 
