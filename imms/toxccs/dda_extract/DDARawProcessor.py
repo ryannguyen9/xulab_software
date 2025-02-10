@@ -210,7 +210,6 @@ class DDARawProcessor:
                     rt_max = min(rt[-1], peak_apex + fixed_bound)
 
                 # Extract MS1 survey scan scan coordinates defined by rt_min and rt_max
-                # Do I indent here?
                 try:
                     scan_indices_ms1 = rdr._MassLynxReader__get_scan_indices(
                         0, rt_min, rt_max
@@ -572,8 +571,8 @@ class DDARawProcessor:
                     except Exception as e:
                         print(f"\tError fetching MS1 precuror ion: {e}")
 
-                # calculate mass error in ppm using fallback value if MS2 spectrum is empty
-                observed_mz_final = (
+                # Calculate mass error in ppm using fallback value if MS2 spectrum is empty
+                """observed_mz_final = (
                     observed_precursor_fallback_mz
                     if observed_precursor_fallback_mz is not None
                     else (
@@ -581,7 +580,29 @@ class DDARawProcessor:
                         if observed_precursor_mz_new is not None
                         else ms2_monoisotopic_mz
                     )
+                )"""
+
+                # Calculate mass errors for both observed_mz values if they exist
+                mass_error_most_intense = (
+                    calculate_mass_error(mz, most_intense_precursor_mz)
+                    if most_intense_precursor_mz is not None
+                    else np.inf
                 )
+                mass_error_observed_precursor = (
+                    calculate_mass_error(mz, observed_precursor_mz_new)
+                    if observed_precursor_mz_new is not None
+                    else np.inf
+                )
+
+                # Choose the observed m/z value with the lower mass error
+                if mass_error_most_intense < mass_error_observed_precursor:
+                    observed_mz_final = most_intense_precursor_mz
+                else:
+                    observed_mz_final = most_intense_precursor_mz
+
+                # Apply fallback if filtered MS2 spectrum is empty
+                if observed_precursor_fallback_mz is not None:
+                    observed_mz_final = observed_precursor_fallback_mz
 
                 # Calculate value
                 mass_error = (
