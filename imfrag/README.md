@@ -127,7 +127,7 @@ When IM resolution is insufficient for confident ISF classification, a fallback 
 | `ms2_reverse_dot_product` | Cosine similarity between the candidate ion's MS2 spectrum and the precursor MS2 spectrum
 | `ms2_matched_ratio` | Fraction of candidate MS2 peaks matched in the precursor's MS2 
 
-#### Composite Confidence Label
+#### Composite Confidence Labels
 
 Following evaluation, every candidate receives a single `isf_confidence` label based on the criteria described below. `Note that these parameters may require significant tuning depending on IM resolving power. Additional studies are warranted to determine optimal starting conditions for ISF evaluation.`
 
@@ -135,7 +135,7 @@ Following evaluation, every candidate receives a single `isf_confidence` label b
 |:-----:|:--------:|
 | `high_im` | $R_s$ ≥ 1.0 AND mobility_profile_pearson_r ≤ 0.6 AND ms1_unaligned_intensity_ratio ≥ 0.3 |
 | `medium_im` | 0.5 ≤ $R_s$ < 1.0 |
-| `high_spectral` | lc_coelution_pearson_r ≥ 0.8 AND ms2_subspectrum_match AND reverse DP > 0.5 OR matched ratio > 0.7 |
+| `high_spectral` | lc_coelution_pearson_r ≥ 0.8 AND ms2_subspectrum_match AND ms2_reverse_dot_product > 0.5 OR ms2_matched_ratio > 0.7 |
 | `medium_spectral` | lc_coelution_pearson_r ≥ 0.8 AND ms2_subspectrum_match |
 | `low` | lc_coelution_pearson_r ≥ 0.8  |
 | `none` | No criteria met in either the IM or spectral similarity frameworks |
